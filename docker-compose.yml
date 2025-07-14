@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    image: rinha-backend:2025
+    deploy:
+      replicas: 3
+    ports:
+      - "9999:9999"
+    cpus: '0.15'
+    mem_limit: 100m
+    networks:
+      - payment-processor
+
+  postgres:
+    image: postgres:15-alpine
+    cpus: '0.3'
+    mem_limit: 150m
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: rinha
+    networks:
+      - payment-processor
+
+  redis:
+    image: redis:7-alpine
+    cpus: '0.1'
+    mem_limit: 50m
+    command: redis-server --maxmemory 50mb --maxmemory-policy allkeys-lru
+    networks:
+      - payment-processor
+
+networks:
+  payment-processor:
+    external: true 

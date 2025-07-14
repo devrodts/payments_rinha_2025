@@ -1,0 +1,6 @@
+Cargo.lock
+/target
+.git
+.gitignore
+artifacts/
+docs/ 
