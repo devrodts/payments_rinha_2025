@@ -26,6 +26,12 @@
 | Código-Teste  | reqwest::get("http://localhost:9999/health").await |
 | Contexto      | Servidor Axum não implementado |
 
+### [FAIL][T1.3][2025-01-27T10:35:00Z]
+| Arquivo       | tests/docker_test.rs:9 |
+| Erro          | Dockerfile should exist |
+| Código-Teste  | fs::metadata("Dockerfile").is_ok() |
+| Contexto      | Configuração Docker não implementada |
+
 ---
 
 ## Padrão de Registro

@@ -12,6 +12,13 @@
   - [Arquivos] src/main.rs, src/modules/config/mod.rs
   - [Status] [x] Concluído | [2025-01-27T10:30:00Z]
 
+- [x] T1.2.1: Resolução de warnings de dead code
+  - [Critério] Campo log_level justificado e silenciado com #[allow(dead_code)]
+  - [Critério] Documentação inline com TODO para implementação futura
+  - [Arquivos] src/modules/config/mod.rs
+  - [Status] [x] Concluído | [2025-01-27T17:05:00Z]
+  - [Nota] Campo mantido para futura implementação de sistema de logging (T2.x)
+
 - [ ] T1.3: Configuração Docker básica
   - [Critério] docker-compose.yml deve definir limites de recursos
   - [Arquivos] docker-compose.yml, Dockerfile
