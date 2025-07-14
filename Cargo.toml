@@ -1,7 +1,7 @@
 [package]
 name = "rinha"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
 axum = "0.7"
@@ -10,13 +10,14 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 rmp-serde = "1.1"
 uuid = { version = "1.0", features = ["v4"] }
-sqlx = { version = "0.7", features = ["postgres", "runtime-tokio"] }
-redis = "0.24"
-reqwest = "0.11"
-validator = "0.16"
+sqlx = { version = "=0.6.3", features = ["postgres", "runtime-tokio-native-tls"] }
+redis = "=0.23.0"
+reqwest = "=0.11.20"
+validator = "=0.16.0"
 zeroize = "1.7"
 log = "0.4"
 env_logger = "0.10"
+base64ct = "=1.7.3"
 
 [profile.release]
 panic = "abort"
