@@ -4,7 +4,6 @@ use axum::{
     routing::{get, post},
     Router,
     http::StatusCode,
-    response::Json,
 };
 use serde_json::json;
 use modules::config::Config;
@@ -31,10 +30,10 @@ async fn root() -> &'static str {
     "Rinha de Backend 2025 - Rust Implementation"
 }
 
-async fn health() -> (StatusCode, Json<serde_json::Value>) {
+async fn health() -> (StatusCode, axum::Json<serde_json::Value>) {
     (
         StatusCode::OK,
-        Json(json!({
+        axum::Json(json!({
             "status": "healthy",
             "service": "rinha-backend-2025",
             "version": "0.1.0"

@@ -58,6 +58,14 @@
 | Impacto       | Input validation missing |
 | Status        | PENDING |
 
+### [FAIL][T2.3][2025-01-27T18:50:00Z]
+| Arquivo       | tests/integration_payment_processor.rs:76 |
+| Erro          | Default processor deve ser chamado |
+| Código-Teste  | assert!(state.default_called, "Default processor deve ser chamado") |
+| Causa         | Endpoint /payments não integra com Payment Processors |
+| Impacto       | Fallback automático não implementado |
+| Status        | PENDING |
+
 ---
 
 ## Padrão de Registro
