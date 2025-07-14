@@ -5,6 +5,7 @@ use rmp_serde::{from_slice, to_vec_named};
 
 #[derive(Debug, Deserialize, Serialize, Validate)]
 pub struct PaymentRequest {
+    #[serde(rename = "correlationId")]
     #[validate(custom = "validate_uuid")]
     pub correlation_id: String,
     
@@ -27,6 +28,9 @@ pub struct PaymentResponse {
 
 impl PaymentRequest {
     /// Deserializa um payload MessagePack para PaymentRequest
+    /// Mantido para futura evolução do endpoint (ex: aceitar entrada binária)
+    /// TODO: Ativar uso quando endpoint aceitar application/x-msgpack
+    #[allow(dead_code)]
     pub fn from_msgpack(data: &[u8]) -> Result<Self, rmp_serde::decode::Error> {
         from_slice(data)
     }
@@ -34,6 +38,9 @@ impl PaymentRequest {
 
 impl PaymentResponse {
     /// Serializa PaymentResponse para MessagePack
+    /// Mantido para futura evolução do endpoint (ex: retornar resposta binária)
+    /// TODO: Ativar uso quando endpoint retornar application/x-msgpack
+    #[allow(dead_code)]
     pub fn to_msgpack(&self) -> Result<Vec<u8>, rmp_serde::encode::Error> {
         to_vec_named(self)
     }
