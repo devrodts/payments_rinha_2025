@@ -3,7 +3,11 @@ use std::net::SocketAddr;
 #[derive(Debug, Clone)]
 pub struct Config {
     pub server_addr: SocketAddr,
-    pub log_level: String,
+    /// Log level configuration for the application.
+    /// Currently not used but kept for future logging implementation.
+    /// TODO: Implement logging system using this field (T2.x task)
+    #[allow(dead_code)]
+    pub log_level: String
 }
 
 impl Config {
@@ -20,6 +24,10 @@ impl Config {
         self.server_addr
     }
 
+    /// Getter for log level configuration.
+    /// Currently not used but kept for future logging implementation.
+    /// TODO: Implement logging system using this method (T2.x task)
+    #[allow(dead_code)]
     pub fn log_level(&self) -> &str {
         &self.log_level
     }
