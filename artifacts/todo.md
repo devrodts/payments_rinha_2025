@@ -26,12 +26,13 @@
 
 ## [Módulo] Payment Processing
 ### Critérios Gerais
-- [ ] T2.1: POST /payments endpoint
+- [x] T2.1: POST /payments endpoint
   - [Critério] Deve aceitar correlationId (UUID) e amount (decimal)
   - [Critério] Deve retornar 2XX para requisições válidas
   - [Critério] Deve validar inputs obrigatórios
-  - [Arquivos] src/modules/payment/mod.rs, src/modules/models/mod.rs
-  - [Status] [ ] Pendente | [x] Concluído
+  - [Arquivos] src/modules/payment/mod.rs, src/modules/models/mod.rs, tests/payment_test.rs
+  - [Status] [x] Concluído | [2025-01-27T18:10:00Z]
+  - [Rastreabilidade] Testes: payment_test.rs | Falhas: failures.md | Correções: fixed.md | Commit: commits.md
 
 - [ ] T2.2: Serialização MessagePack
   - [Critério] Payload deve ser 65% menor que JSON

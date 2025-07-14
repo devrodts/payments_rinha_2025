@@ -1,13 +1,14 @@
 mod modules;
 
 use axum::{
-    routing::get,
+    routing::{get, post},
     Router,
     http::StatusCode,
     response::Json,
 };
 use serde_json::json;
 use modules::config::Config;
+use modules::payment::create_payment;
 
 #[tokio::main]
 async fn main() {
@@ -17,7 +18,8 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(root))
-        .route("/health", get(health));
+        .route("/health", get(health))
+        .route("/payments", post(create_payment));
 
     log::info!("Starting server on {}", config.server_addr());
 
