@@ -13,7 +13,7 @@ uuid = { version = "1.0", features = ["v4"] }
 sqlx = { version = "=0.6.3", features = ["postgres", "runtime-tokio-native-tls"] }
 redis = "=0.23.0"
 reqwest = "=0.11.20"
-validator = "=0.16.0"
+validator = { version = "=0.16.0", features = ["derive"] }
 zeroize = "1.7"
 log = "0.4"
 env_logger = "0.10"
