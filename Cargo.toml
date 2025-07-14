@@ -1,0 +1,24 @@
+[package]
+name = "rinha"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+rmp-serde = "1.1"
+uuid = { version = "1.0", features = ["v4"] }
+sqlx = { version = "0.7", features = ["postgres", "runtime-tokio"] }
+redis = "0.24"
+reqwest = "0.11"
+validator = "0.16"
+zeroize = "1.7"
+log = "0.4"
+env_logger = "0.10"
+
+[profile.release]
+panic = "abort"
+lto = "thin"
+codegen-units = 1
+strip = true
