@@ -40,11 +40,11 @@ async fn start_test_server() -> (SocketAddr, oneshot::Sender<()>) {
 
 #[tokio::test]
 async fn test_payment_validation() {
-    // Teste de validação de inputs
+
     let (server_addr, _shutdown_tx) = start_test_server().await;
     let client = reqwest::Client::new();
     
-    // Teste com UUID inválido
+
     let resp = client.post(&format!("http://{}/payments", server_addr))
         .json(&serde_json::json!({
             "correlationId": "invalid-uuid",
@@ -54,7 +54,6 @@ async fn test_payment_validation() {
     
     assert_eq!(resp.status().as_u16(), 400, "Deve retornar 400 para UUID inválido");
     
-    // Teste com amount inválido
     let resp = client.post(&format!("http://{}/payments", server_addr))
         .json(&serde_json::json!({
             "correlationId": "4a7901b8-7d26-4d9d-aa19-4dc1c7cf60b3",
@@ -80,7 +79,7 @@ async fn test_real_integration_with_payment_processors() {
 } 
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_integration() {
+async fn payment_processor_integration_test() {
     // T2.2: Integração com Payment Processors
     // Critério: Deve integrar com payment-processor-default:8080
     // Critério: Deve integrar com payment-processor-fallback:8080
@@ -91,17 +90,18 @@ async fn test_t2_2_payment_processor_integration() {
     assert!(processors_content.contains("PaymentProcessor"), "Should have PaymentProcessor struct");
     assert!(processors_content.contains("process_payment"), "Should have process_payment method");
     
-    // Verificar se tem URLs configuráveis
-    assert!(processors_content.contains("PAYMENT_PROCESSOR_DEFAULT_URL"), "Should have configurable default URL");
-    assert!(processors_content.contains("PAYMENT_PROCESSOR_FALLBACK_URL"), "Should have configurable fallback URL");
+    // Verificar se usa ProcessorSelector para integração
+    assert!(processors_content.contains("ProcessorSelector"), "Should use ProcessorSelector for integration");
+    assert!(processors_content.contains("selector: ProcessorSelector"), "Should have selector field");
     
-    // Verificar se tem fallback automático
-    assert!(processors_content.contains("try_default_processor"), "Should have default processor method");
-    assert!(processors_content.contains("try_fallback_processor"), "Should have fallback processor method");
+    // Verificar se tem URLs configuráveis via ProcessorSelector
+    let selector_content = std::fs::read_to_string("src/modules/processors/selector.rs").expect("Should read processors/selector.rs");
+    assert!(selector_content.contains("PAYMENT_PROCESSOR_DEFAULT_URL"), "Should have configurable default URL");
+    assert!(selector_content.contains("PAYMENT_PROCESSOR_FALLBACK_URL"), "Should have configurable fallback URL");
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_request_structure() {
+async fn payment_processor_request_structure_test() {
     // T2.2: Verificar estrutura da requisição
     
     let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
@@ -122,65 +122,62 @@ async fn test_t2_2_payment_processor_request_structure() {
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_response_structure() {
-    // T2.2: Verificar estrutura da resposta
-    
+async fn payment_processor_response_structure_test() {
+       
     let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
     
-    // Verificar se PaymentProcessorResponse existe
     assert!(processors_content.contains("PaymentProcessorResponse"), "Should have PaymentProcessorResponse struct");
     
-    // Verificar se tem message
     assert!(processors_content.contains("message: String"), "Should have message field");
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_timestamp() {
+async fn payment_processor_timestamp_test() {
     // T2.2: Verificar se adiciona timestamp
     
-    let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
+    let selector_content = std::fs::read_to_string("src/modules/processors/selector.rs").expect("Should read processors/selector.rs");
     
     // Verificar se usa SystemTime para timestamp
-    assert!(processors_content.contains("SystemTime::now()"), "Should use SystemTime::now() for timestamp");
-    assert!(processors_content.contains("UNIX_EPOCH"), "Should use UNIX_EPOCH for timestamp");
-    assert!(processors_content.contains("as_millis()"), "Should convert to milliseconds");
+    assert!(selector_content.contains("SystemTime::now()"), "Should use SystemTime::now() for timestamp");
+    assert!(selector_content.contains("UNIX_EPOCH"), "Should use UNIX_EPOCH for timestamp");
+    assert!(selector_content.contains("as_millis()"), "Should convert to milliseconds");
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_timeout() {
+async fn payment_processor_timeout_test() {
     // T2.2: Verificar se tem timeout configurado
     
-    let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
+    let selector_content = std::fs::read_to_string("src/modules/processors/selector.rs").expect("Should read processors/selector.rs");
     
     // Verificar se tem timeout de 5 segundos
-    assert!(processors_content.contains("timeout(std::time::Duration::from_secs(5))"), "Should have 5 second timeout");
+    assert!(selector_content.contains("timeout(std::time::Duration::from_secs(5))"), "Should have 5 second timeout");
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_fallback_logic() {
+async fn payment_processor_fallback_logic_test() {
     // T2.2: Verificar lógica de fallback
     
-    let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
+    let selector_content = std::fs::read_to_string("src/modules/processors/selector.rs").expect("Should read processors/selector.rs");
     
     // Verificar se tenta default primeiro
-    assert!(processors_content.contains("try_default_processor"), "Should try default processor first");
+    assert!(selector_content.contains("get_default_processor"), "Should try default processor first");
     
     // Verificar se tem fallback em caso de erro
-    assert!(processors_content.contains("Err(_) =>"), "Should handle default processor error");
-    assert!(processors_content.contains("try_fallback_processor"), "Should try fallback processor on error");
+    assert!(selector_content.contains("try_fallback_processor"), "Should try fallback processor on error");
+    assert!(selector_content.contains("try_any_processor"), "Should try any available processor as last resort");
 }
 
 #[tokio::test]
-async fn test_t2_2_payment_processor_urls() {
+async fn payment_processor_urls_test() {
     // T2.2: Verificar URLs padrão
     
-    let processors_content = std::fs::read_to_string("src/modules/processors/mod.rs").expect("Should read processors/mod.rs");
+    let selector_content = std::fs::read_to_string("src/modules/processors/selector.rs").expect("Should read processors/selector.rs");
     
     // Verificar URLs padrão
-    assert!(processors_content.contains("payment-processor-default:8080"), "Should have default processor URL");
-    assert!(processors_content.contains("payment-processor-fallback:8080"), "Should have fallback processor URL");
+    assert!(selector_content.contains("payment-processor-default:8080"), "Should have default processor URL");
+    assert!(selector_content.contains("payment-processor-fallback:8080"), "Should have fallback processor URL");
     
     // Verificar se usa variáveis de ambiente
-    assert!(processors_content.contains("std::env::var"), "Should use environment variables for URLs");
-    assert!(processors_content.contains("unwrap_or_else"), "Should have fallback URLs if env vars not set");
+    assert!(selector_content.contains("std::env::var"), "Should use environment variables for URLs");
+    assert!(selector_content.contains("unwrap_or_else"), "Should have fallback URLs if env vars not set");
 } 

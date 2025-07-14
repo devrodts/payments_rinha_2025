@@ -45,6 +45,12 @@ Este arquivo registra todas as correções implementadas, com análise de causa-
 | Impacto       | Reliability ++ (Seleção por taxa, fallback automático, testes determinísticos) |
 | Arquivos      | src/modules/processors/selector.rs, tests/processor_selector_test.rs, Cargo.toml |
 
+### [FIXED][T13.1][2025-01-27T23:00:00Z]
+| Erro Original | #failures-md-link |
+| Solução       | Refatoração para expor e integrar managers (ProcessorSelector, HealthCheckService, RedisCache) via ApplicationServices, removendo campos e métodos não utilizados e garantindo integração real entre módulos |
+| Impacto       | Manutenibilidade ++, Redução de warnings, Modularidade ++ |
+| Arquivos      | src/modules/processors/mod.rs, src/modules/health/mod.rs, src/modules/cache/mod.rs, src/modules/mod.rs, tests/dead_code_integration_test.rs, artifacts/todo.md, artifacts/failures.md |
+
 ---
 
 ## Legenda

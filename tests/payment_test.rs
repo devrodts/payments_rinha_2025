@@ -1,7 +1,7 @@
 
 
 #[tokio::test]
-async fn test_t2_1_payments_endpoint_exists() {
+async fn payments_endpoint_exists_test() {
     // T2.1: Endpoint POST /payments
     // Critério: Deve aceitar correlationId (UUID) e amount (decimal)
     // Critério: Deve retornar HTTP 2XX para sucesso
@@ -23,7 +23,7 @@ async fn test_t2_1_payments_endpoint_exists() {
 }
 
 #[tokio::test]
-async fn test_t2_1_payments_validation_correlation_id() {
+async fn payments_validation_correlation_id_test() {
     // T2.1: Validação de correlationId
     
     // Verificar se a validação de UUID está implementada
@@ -38,7 +38,7 @@ async fn test_t2_1_payments_validation_correlation_id() {
 }
 
 #[tokio::test]
-async fn test_t2_1_payments_validation_amount() {
+async fn payments_validation_amount_test() {
     // T2.1: Validação de amount
     
     // Verificar se a validação de amount está implementada
@@ -52,7 +52,7 @@ async fn test_t2_1_payments_validation_amount() {
 }
 
 #[tokio::test]
-async fn test_t2_1_payments_validation_amount_zero() {
+async fn payments_validation_amount_zero_test() {
     // T2.1: Validação de amount zero
     
     // Verificar se amount zero é rejeitado
@@ -65,7 +65,7 @@ async fn test_t2_1_payments_validation_amount_zero() {
 }
 
 #[tokio::test]
-async fn test_t2_1_payments_validation_amount_minimum() {
+async fn payments_validation_amount_minimum_test() {
     // T2.1: Validação de amount mínimo
     
     // Verificar se amount mínimo (0.01) é aceito

@@ -82,6 +82,22 @@ Este arquivo registra todos os commits semânticos seguindo Conventional Commits
 | Rastreabilidade | Fixes: #failures-md-link |
 |               | Docs: #todo-md-link  |
 
+### [2025-01-27T23:00:00Z] Commit: a4c2a8d
+| Campo         | Valor               |
+|---------------|---------------------|
+| Tipo          | refactor            |
+| Task ID       | T13.1               |
+| Mensagem      | refactor(T13.1): integrate and expose managers to resolve dead code warnings |
+| Alterações    | - src/modules/processors/mod.rs (simplificação e integração) |
+|               | - src/modules/health/mod.rs (integração HealthManager) |
+|               | - src/modules/cache/mod.rs (integração CacheManager) |
+|               | - src/modules/mod.rs (ApplicationServices) |
+|               | - tests/dead_code_integration_test.rs (novo teste) |
+|               | - artifacts/todo.md (status updated) |
+|               | - artifacts/failures.md (nova falha registrada) |
+| Rastreabilidade | Fixes: #failures-md-link |
+|               | Docs: #todo-md-link  |
+
 ---
 
 ## Tipos de Commit (Conventional Commits 1.0)

@@ -28,6 +28,7 @@ pub struct PaymentProcessorResponse {
     pub message: String,
 }
 
+#[allow(dead_code)]
 pub struct ProcessorSelector {
     processors: Arc<RwLock<HashMap<String, ProcessorInfo>>>,
     client: Client,

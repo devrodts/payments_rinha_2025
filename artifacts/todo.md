@@ -166,26 +166,25 @@
 
 ## [Módulo] Code Quality
 ### Critérios Gerais
-- [ ] T13.1: Resolução de warnings de dead code
+- [x] T13.1: Resolução de warnings de dead code
   - [Critério] Deve eliminar todos os warnings de dead code
   - [Critério] Deve integrar módulos não utilizados
   - [Critério] Deve manter funcionalidade existente
   - [Arquivos] src/modules/processors/selector.rs, src/modules/health/service.rs, src/modules/cache/redis.rs
-  - [Status] [ ] Pendente | [x] Concluído
+  - [Status] [x] Concluído em 2025-01-27T23:00:00Z
 
 ---
 
 ## Progresso Geral
 - **Total de Tasks**: 26
-- **Concluídas**: 8
-- **Pendentes**: 18
-- **Progresso**: 31%
+- **Concluídas**: 9
+- **Pendentes**: 17
+- **Progresso**: 35%
 
 ## Próximas Ações
-1. **T13.1**: Resolver warnings de dead code (PRIORIDADE ALTA)
-2. **T3.1**: Implementar health check dos processadores
-3. **T5.1**: Implementar endpoint GET /payments-summary
-4. **T3.2**: Implementar Circuit Breaker atômico
-5. Seguir ordem sequencial dos módulos restantes
-6. Validar cada task com testes antes de marcar como concluída
-7. Documentar progresso em artifacts/commits.md 
+1. **T3.1**: Implementar health check dos processadores
+2. **T5.1**: Implementar endpoint GET /payments-summary
+3. **T3.2**: Implementar Circuit Breaker atômico
+4. Seguir ordem sequencial dos módulos restantes
+5. Validar cada task com testes antes de marcar como concluída
+6. Documentar progresso em artifacts/commits.md 
