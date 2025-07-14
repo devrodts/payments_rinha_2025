@@ -6,6 +6,33 @@
 - `src/main.rs`: Ponto de entrada da aplicação ([LOC:3])
 - `tests/t1_1_setup_test.rs`: Testes de validação do setup ([LOC:25])
 
+## T1.2: Configuração do Servidor Axum
+**Arquivos-Chave:** 
+- `src/main.rs`: Servidor Axum com endpoints ([LOC:35])
+- `src/modules/config/mod.rs`: Módulo de configuração ([LOC:25])
+- `tests/t1_2_server_test.rs`: Testes do servidor ([LOC:30])
+- `tests/integration_test.rs`: Testes de integração ([LOC:35])
+
+**Erros Resolvidos:** 
+- [Falha: Servidor não responde na porta 9999](artifacts/failures.md#failt122025-01-27t102500z)
+
+**Como Usar:**
+```bash
+# Iniciar servidor
+cargo run
+
+# Testar endpoints
+curl http://localhost:9999/
+curl http://localhost:9999/health
+
+# Executar testes
+cargo test
+```
+
+**Endpoints Implementados:**
+- `GET /` - Página inicial
+- `GET /health` - Health check (retorna JSON com status)
+
 **Erros Resolvidos:** 
 - [Falha: Dependências não encontradas](artifacts/failures.md#failt112025-01-27t101500z)
 
