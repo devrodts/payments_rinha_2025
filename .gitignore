@@ -1,7 +1,10 @@
 /target
-todo.md
-failures.md
-fixed.md
-commits.md
-artifacts/
-docs/
+Cargo.lock
+*.log
+.env
+.env.local
+
+# Manter arquivos de documentação de desenvolvimento
+!artifacts/
+!artifacts/*.md
+!artifacts/*.json
