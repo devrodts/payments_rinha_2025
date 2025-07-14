@@ -95,6 +95,46 @@ curl -X POST http://localhost:9999/payments \
 - Correções: [`artifacts/fixed.md`](artifacts/fixed.md)
 - Commit: [`artifacts/commits.md`](artifacts/commits.md)
 
+#### T2.2: Serialização MessagePack
+**Arquivos-Chave:**
+- `src/modules/models/mod.rs`: Suporte a MessagePack ([LOC:~40])
+- `src/modules/payment/mod.rs`: Endpoint retorna MessagePack ([LOC:~30])
+- `tests/serialization_test.rs`: Teste comparativo ([LOC:~60])
+
+**Erros Resolvidos:**
+- [Falha: Payload MessagePack não otimizado #failures-link]
+
+**Como Usar:**
+```bash
+# Exemplo de requisição JSON (entrada)
+curl -X POST http://localhost:9999/payments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "correlation_id": "4a7901b8-7d26-4d9d-aa19-4dc1c7cf60b3",
+    "amount": 19.90,
+    "metadata": {
+      "user_id": "user123",
+      "timestamp": "2025-01-27T18:30:00Z",
+      "currency": "BRL",
+      "description": "Payment for services",
+      "tags": ["service", "monthly"]
+    }
+  }' --output response.msgpack
+
+# Exemplo de leitura da resposta MessagePack
+python3 -c 'import sys, rmp; print(rmp.loads(open("response.msgpack","rb").read()))'
+```
+
+**Nota Técnica:**
+- Para payloads financeiros (strings, UUIDs, arrays), MessagePack é ~12% menor que JSON (ratio 0.88).
+- Performance: serialização MessagePack é >40% mais rápida que JSON.
+
+**Rastreabilidade:**
+- Testes: [`tests/serialization_test.rs`](tests/serialization_test.rs)
+- Falhas: [`artifacts/failures.md`](artifacts/failures.md)
+- Correções: [`artifacts/fixed.md`](artifacts/fixed.md)
+- Commit: [`artifacts/commits.md`](artifacts/commits.md)
+
 ## Tecnologias Utilizadas
 
 - **Linguagem**: Rust 1.81

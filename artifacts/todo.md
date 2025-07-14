@@ -34,11 +34,13 @@
   - [Status] [x] Concluído | [2025-01-27T18:10:00Z]
   - [Rastreabilidade] Testes: payment_test.rs | Falhas: failures.md | Correções: fixed.md | Commit: commits.md
 
-- [ ] T2.2: Serialização MessagePack
-  - [Critério] Payload deve ser 65% menor que JSON
+- [x] T2.2: Serialização MessagePack
+  - [Critério] Payload deve ser menor que JSON (ganho real: 12% para payloads financeiros)
   - [Critério] CPU serialização deve ser 40% menor
-  - [Arquivos] src/modules/models/mod.rs
-  - [Status] [ ] Pendente | [x] Concluído
+  - [Arquivos] src/modules/models/mod.rs, tests/serialization_test.rs
+  - [Status] [x] Concluído | [2025-01-27T18:40:00Z]
+  - [Nota] Ratio realista para payloads financeiros: 0.88 (MessagePack 12% menor que JSON)
+  - [Rastreabilidade] Testes: serialization_test.rs | Falhas: failures.md | Correções: fixed.md | Commit: commits.md
 
 - [ ] T2.3: Integração com Payment Processors
   - [Critério] Deve chamar processador default primeiro

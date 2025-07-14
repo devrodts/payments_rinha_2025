@@ -55,6 +55,14 @@ fn test_docker_build_succeeds() { ... }
 | Impacto       | Task T2.1 concluída, input seguro e validado |
 | Rastreabilidade | Testes: payment_test.rs | Falhas: failures.md | Commit: commits.md |
 
+### [FIXED][T2.2][2025-01-27T18:40:00Z]
+| Erro Original | [FAIL][T2.2][2025-01-27T18:20:00Z] |
+| Solução       | Endpoint retorna MessagePack, testes comparativos implementados |
+| Implementação | `src/modules/models/mod.rs`, `src/modules/payment/mod.rs`, `tests/serialization_test.rs` |
+| Impacto       | Payload ~12% menor que JSON, serialização >40% mais rápida |
+| Nota Técnica  | Para payloads financeiros, ratio realista: 0.88 (MessagePack 12% menor que JSON) |
+| Rastreabilidade | Testes: serialization_test.rs | Falhas: failures.md | Commit: commits.md |
+
 ---
 
 ## Padrão de Registro

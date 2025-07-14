@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 use uuid::Uuid;
+use rmp_serde::{from_slice, to_vec_named};
 
 #[derive(Debug, Deserialize, Serialize, Validate)]
 pub struct PaymentRequest {
@@ -22,4 +23,18 @@ fn validate_uuid(correlation_id: &str) -> Result<(), validator::ValidationError>
 #[derive(Debug, Serialize)]
 pub struct PaymentResponse {
     pub message: String,
+}
+
+impl PaymentRequest {
+    /// Deserializa um payload MessagePack para PaymentRequest
+    pub fn from_msgpack(data: &[u8]) -> Result<Self, rmp_serde::decode::Error> {
+        from_slice(data)
+    }
+}
+
+impl PaymentResponse {
+    /// Serializa PaymentResponse para MessagePack
+    pub fn to_msgpack(&self) -> Result<Vec<u8>, rmp_serde::encode::Error> {
+        to_vec_named(self)
+    }
 } 
