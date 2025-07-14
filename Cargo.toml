@@ -25,3 +25,6 @@ panic = "abort"
 lto = "thin"
 codegen-units = 1
 strip = true
+
+[dev-dependencies]
+httpmock = "0.6"

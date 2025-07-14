@@ -2,6 +2,8 @@ use serde::{Serialize, Deserialize};
 use reqwest::Client;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+pub mod selector;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaymentProcessorRequest {
     #[serde(rename = "correlationId")]
