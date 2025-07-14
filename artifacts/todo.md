@@ -85,7 +85,7 @@
 
 ## [Módulo] Performance Optimization
 ### Critérios Gerais
-- [ ] T7.1: Serialização MessagePack
+- [x] T7.1: Serialização MessagePack
   - [Critério] Deve usar rmp-serde para payloads binários
   - [Critério] Deve reduzir tamanho em 65% vs JSON
   - [Critério] Deve reduzir CPU em 40% vs JSON
@@ -102,7 +102,7 @@
 
 ## [Módulo] Security & Compliance
 ### Critérios Gerais
-- [ ] T8.1: Validação de inputs
+- [x] T8.1: Validação de inputs
   - [Critério] Deve usar validator crate
   - [Critério] Deve validar UUID e decimal
   - [Critério] Deve prevenir injection attacks
@@ -135,7 +135,7 @@
 
 ## [Módulo] Testing & Validation
 ### Critérios Gerais
-- [ ] T11.1: Testes de integração
+- [x] T11.1: Testes de integração
   - [Critério] Deve testar endpoints principais
   - [Critério] Deve testar cenários de falha
   - [Critério] Deve testar performance
@@ -151,7 +151,7 @@
 
 ## [Módulo] Documentation
 ### Critérios Gerais
-- [ ] T12.1: README.md completo
+- [x] T12.1: README.md completo
   - [Critério] Deve explicar tecnologias usadas
   - [Critério] Deve ter exemplos de uso
   - [Critério] Deve ter instruções de deploy
@@ -164,16 +164,28 @@
   - [Arquivos] info.json
   - [Status] [ ] Pendente | [x] Concluído
 
+## [Módulo] Code Quality
+### Critérios Gerais
+- [ ] T13.1: Resolução de warnings de dead code
+  - [Critério] Deve eliminar todos os warnings de dead code
+  - [Critério] Deve integrar módulos não utilizados
+  - [Critério] Deve manter funcionalidade existente
+  - [Arquivos] src/modules/processors/selector.rs, src/modules/health/service.rs, src/modules/cache/redis.rs
+  - [Status] [ ] Pendente | [x] Concluído
+
 ---
 
 ## Progresso Geral
-- **Total de Tasks**: 25
-- **Concluídas**: 5
-- **Pendentes**: 20
-- **Progresso**: 20%
+- **Total de Tasks**: 26
+- **Concluídas**: 8
+- **Pendentes**: 18
+- **Progresso**: 31%
 
 ## Próximas Ações
-1. Iniciar com T1.1 (Setup inicial do projeto Rust)
-2. Seguir ordem sequencial dos módulos
-3. Validar cada task com testes antes de marcar como concluída
-4. Documentar progresso em artifacts/commits.md 
+1. **T13.1**: Resolver warnings de dead code (PRIORIDADE ALTA)
+2. **T3.1**: Implementar health check dos processadores
+3. **T5.1**: Implementar endpoint GET /payments-summary
+4. **T3.2**: Implementar Circuit Breaker atômico
+5. Seguir ordem sequencial dos módulos restantes
+6. Validar cada task com testes antes de marcar como concluída
+7. Documentar progresso em artifacts/commits.md 

@@ -33,6 +33,12 @@ Este arquivo registra todas as falhas encontradas durante o desenvolvimento TDD,
 | Código-Teste  | assert!(result.is_ok()) |
 | Contexto      | Processador tentando fazer chamadas HTTP reais em ambiente de teste |
 
+### [FAIL][T13.1][2025-01-27T23:00:00Z]
+| Arquivo       | tests/setup_test.rs:88 |
+| Erro          | Found 3 warnings in compilation - dead code warnings |
+| Código-Teste  | assert_eq!(warnings.len(), 0) |
+| Contexto      | Módulos processors/selector.rs, health/service.rs, cache/redis.rs têm funções não utilizadas |
+
 ---
 
 ## Legenda
